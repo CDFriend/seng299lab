@@ -8,7 +8,9 @@ function getData(cb){
     $.get("/data", function(data, textStatus, xhr){
         console.log("Response for /data: "+textStatus);  
 
-        // handle any errors here....
+        if (textStatus !== 'success') {
+			alert("Failed to retrieve board data.");
+		}
 
         // draw the board....
         cb(data);  
@@ -34,7 +36,7 @@ function drawBoard(state){
     // Change the height and width of the board here...
     // everything else should adapt to an adjustable
     // height and width.
-    var W = 600, H = 600; 
+    var W = 500, H = 500; 
     canvas.css("height", H); 
     canvas.css("width", W); 
 

@@ -53,7 +53,11 @@ function makeLine(x1, y1, x2, y2, color, stroke) {
 function makeRectangle(x, y, w, h, c){
    var rect = document.createElementNS(SVGNameSpace, "rect"); 
 
-   // TODO: Implement me. Checkout docs at: http://www.w3schools.com/svg/svg_rect.asp
+   rect.setAttribute("x", x);
+   rect.setAttribute("y", y);
+   rect.setAttribute("width", w);
+   rect.setAttribute("height", h);
+   rect.style.fill = c || "#000000";
 
    return rect; 
 }
@@ -72,7 +76,10 @@ function makeCircle(x, y, r, c){
 
    var circ = document.createElementNS(SVGNameSpace, "circle"); 
 
-    // TODO: Implement me. Checkout docs at: http://www.w3schools.com/svg/svg_circle.asp
+   circ.setAttribute("cx", x);
+   circ.setAttribute("cy", y);
+   circ.setAttribute("r", r);
+   circ.style.fill = c || "#000000";
 
    return circ;
 

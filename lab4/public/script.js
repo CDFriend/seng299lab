@@ -32,6 +32,10 @@ function getData(cb){
 function drawBoard(state){
 
     var canvas = $("#canvas"); 
+	
+	var BOARD_COLOR = "#E2A76F";
+	var WHITE = "#FFFFFF";
+	var BLACK = "#000000";
 
     // Change the height and width of the board here...
     // everything else should adapt to an adjustable
@@ -44,12 +48,37 @@ function drawBoard(state){
     // we make a jQuery object out of this, so that 
     // we can manipulate it via calls to the jQuery API. 
     var svg = $(makeSVG(W, H));
-
-    // TODO: Implement board drawing. 
-    
-    //  You will want to append elements to the 
-    //  svg variable using the svg.append(....) 
-    //  method. 
+	
+	var squareWidth = W/state.size;
+	var squareHeight = H/state.size;
+	
+	for (var y = 0; y < state.size; y++) {
+		for (var x = 0; x < state.size; x++) {
+			
+			xPos = x * (W/state.size);
+			yPos = y * (H/state.size);
+			
+			//board background
+			svg.append(makeRectangle(xPos, yPos, squareWidth, squareHeight, BOARD_COLOR));
+			
+			//piece, if applicable
+			if (state.board[x][y] == 1) {
+				svg.append(makeCircle(xPos + (squareWidth/2), yPos + (squareWidth/2), squareWidth/2, WHITE));
+			}
+			else if (state.board[x][y] == 2) {
+				svg.append(makeCircle(xPos + (squareWidth/2), yPos + (squareWidth/2), squareWidth/2, BLACK));
+			}
+			
+		}
+	}
+	
+	//draw lines
+	for (var y = 0; y < H; y += squareHeight) {
+		svg.append(makeLine(0, y, W, y));
+	}
+	for (var x = 0; x < W; x += squareWidth) {
+		svg.append(makeLine(x, 0, x, H));
+	}
 
     // append the svg object to the canvas object.
     canvas.append(svg);

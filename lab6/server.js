@@ -1,6 +1,7 @@
 "use strict";
 
-var express    = require("express");
+var express     = require("express");
+var aiInterface = require("./aiInterface.js");
 
 var app = express();
 
@@ -42,6 +43,19 @@ function generateBoard(){
 app.get("/data", function (req, res) {
     console.log("GET Request to: /data");
     res.json(generateBoard()); 
+});
+
+
+app.post("/move", function(req, res) {
+	
+	console.log("POST request to: /move");
+	
+	aiInterface.getRandomMove(boardState.size, boardState.board, lastMove, function(move){
+		boardState.board[move.x][move.y] = move.c;
+		lastMove = move;
+		res.json(boardState);
+	});
+	
 });
 
 app.listen(process.env.PORT || 3000, function () {

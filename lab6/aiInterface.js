@@ -9,8 +9,6 @@ function getRandomMove(size, board, lastMove, cb) {
 		last : lastMove
 	};
 	
-	console.log(inputData);
-	
 	// create post request
 	var options = {
 		host : "roberts.seng.uvic.ca", 
@@ -23,16 +21,20 @@ function getRandomMove(size, board, lastMove, cb) {
 	};
 	var req = http.request(options, function(response) {
 		
-		console.log("Server response: ")
 		var responseData = '';
 		
 		response.on('data', function(chunk) {
-			console.log(chunk.toString());
 			responseData += chunk.toString();
 		});
 		
 		response.on('end', function() {
-			console.log("Response ended.");
+			
+			if (responseData === "Invalid request format.") {
+				console.log("Server failed to parse JSON: ");
+				console.log(inputData);
+				return;
+			}
+			
 			cb(JSON.parse(responseData));
 		});
 		

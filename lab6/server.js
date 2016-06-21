@@ -53,9 +53,20 @@ app.post("/move", function(req, res) {
 	console.log("POST request to: /move");
 	
 	aiInterface.getRandomMove(boardState.size, boardState.board, lastMove, function(move){
-		boardState.board[move.x][move.y] = move.c;
-		lastMove = move;
-		res.json(boardState);
+		
+		if (!move.pass) {
+			boardState.board[move.x][move.y] = move.c;
+			lastMove = move;
+			res.json(boardState);
+		}
+		else {
+			console.log("AI player passed. Reset.");
+			
+			lastMove = LAST_DEFAULT;
+			boardState = generateBoard();
+			res.json(boardState);
+		}
+		
 	});
 	
 });
@@ -66,5 +77,7 @@ app.listen(process.env.PORT || 3000, function () {
 
 /*initial setup*/
 
+var LAST_DEFAULT = {x:0, y:0, c:0, pass:false};
+
 var boardState = generateBoard();
-var lastMove = {x:0, y:0, c:0, pass:false};
+var lastMove = LAST_DEFAULT;

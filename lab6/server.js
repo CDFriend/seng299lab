@@ -26,7 +26,7 @@ function generateBoard(){
     for(var i = 0; i < state.size; i++){
         tmp = []; 
         for(var j = 0; j < state.size; j++){
-            tmp.push(Math.floor(Math.random()*(2 - 0 + 1))); 
+            tmp.push(0); 
         }
         state.board.push(tmp);
     }
@@ -42,7 +42,9 @@ function generateBoard(){
  */
 app.get("/data", function (req, res) {
     console.log("GET Request to: /data");
-    res.json(generateBoard()); 
+	
+    boardState = generateBoard();
+    res.json(boardState); 
 });
 
 
@@ -61,3 +63,8 @@ app.post("/move", function(req, res) {
 app.listen(process.env.PORT || 3000, function () {
     console.log("Listening on port 3000");
 });
+
+/*initial setup*/
+
+var boardState = generateBoard();
+var lastMove = {x:0, y:0, c:0, pass:false};

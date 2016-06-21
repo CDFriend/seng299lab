@@ -103,7 +103,8 @@ function drawBoard(state){
 		svg.append(makeLine(x, 0, x, H));
 	}
 
-    // append the svg object to the canvas object.
+    // append the new svg object to the canvas object.
+	canvas.html('');
     canvas.append(svg);
 
 }

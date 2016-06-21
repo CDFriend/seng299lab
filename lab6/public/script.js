@@ -19,6 +19,18 @@ function getData(cb){
 }
 
 /**
+ * Gets the AI's next move from the server.
+ *
+ * @param cb {function} callback to call when the request comes back.
+ *
+ */
+function getNextMove(cb){
+	
+	//TODO
+	
+}
+
+/**
  * Draws the board to the #canvas element on the page. 
  *
  * You may find the following links helpful: 

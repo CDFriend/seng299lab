@@ -6,6 +6,8 @@
     <body>
     
         <h1>My Go Board</h1>
+		
+		<button id="getMoveButton" type="button">Get AI move</button>
 
         <div style='width:100%;'>
             <div id='canvas'>
@@ -18,6 +20,12 @@
         <script src="script.js"></script>
         <script>
             init(); 
+			
+			$('#getMoveButton').click(function() {
+				console.log("Getting move data...");
+				getNextMove(drawBoard);
+			});
+			
         </script>
     </body>
 </html>

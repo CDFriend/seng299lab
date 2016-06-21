@@ -26,7 +26,18 @@ function getData(cb){
  */
 function getNextMove(cb){
 	
-	//TODO
+	$.post("/move", function(data, textStatus) {
+		
+		console.log("Response for /move: " + textStatus);
+		
+		if (textStatus !== 'success') {
+			alert('Failed to retrieve next move data');
+			return;
+		}
+		
+		cb(data);
+		
+	})
 	
 }
 
